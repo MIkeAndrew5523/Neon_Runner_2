@@ -1,0 +1,12 @@
+/* Base: defaults + light reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+img, svg, canvas, video { display: block; max-width: 100%; }
+
+html, body {
+  background: #0b0f16;
+  color: #e6f0ff;
+  font-family: system-ui, Segoe UI, Arial, sans-serif;
+  line-height: 1.4;
+}
+:focus-visible { outline: 2px solid #00e5ff; outline-offset: 2px; }

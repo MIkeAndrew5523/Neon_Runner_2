@@ -1,0 +1,43 @@
+database: cyberdrift
+tables:
+  users:
+    id:            {type: INT UNSIGNED, pk: true, autoinc: true, comment: "PK"}
+    username:      {type: VARCHAR(32), unique: true, notnull: true}
+    avatar_key:    {type: VARCHAR(32), notnull: true}
+    email:         {type: VARCHAR(190)}
+    pass_hash:     {type: CHAR(60)}
+    created_at:    {type: TIMESTAMP, default: CURRENT_TIMESTAMP}
+
+  progress:
+    user_id:          {type: INT UNSIGNED, pk: true, fk: users.id}
+    current_sector:   {type: TINYINT UNSIGNED, default: 1}
+    sector1_complete: {type: TINYINT(1), default: 0}
+    sector2_complete: {type: TINYINT(1), default: 0}
+    sector3_complete: {type: TINYINT(1), default: 0}
+    story_flags:      {type: JSON}
+    updated_at:       {type: TIMESTAMP, default: CURRENT_TIMESTAMP, onupdate: true}
+
+  scores:
+    id:          {type: BIGINT UNSIGNED, pk: true, autoinc: true}
+    user_id:     {type: INT UNSIGNED, fk: users.id}
+    run_id:      {type: CHAR(36), notnull: true}
+    sector:      {type: TINYINT UNSIGNED, notnull: true}
+    points:      {type: INT, default: 0}
+    duration_ms: {type: INT UNSIGNED}
+    created_at:  {type: TIMESTAMP, default: CURRENT_TIMESTAMP}
+
+  inventory:
+    user_id:     {type: INT UNSIGNED, pk: true, fk: users.id}
+    item_key:    {type: VARCHAR(48), pk: true}
+    qty:         {type: INT, default: 1}
+    acquired_at: {type: TIMESTAMP, default: CURRENT_TIMESTAMP}
+
+  checkpoints:
+    user_id:      {type: INT UNSIGNED, pk: true, fk: users.id}
+    sector:       {type: TINYINT UNSIGNED, pk: true}
+    level_key:    {type: VARCHAR(64), pk: true}
+    state:        {type: JSON, notnull: true}
+    progress_pct: {type: TINYINT UNSIGNED}
+    rev:          {type: INT UNSIGNED, default: 1}
+    updated_at:   {type: TIMESTAMP, default: CURRENT_TIMESTAMP, onupdate: true}
+

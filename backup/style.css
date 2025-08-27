@@ -1,0 +1,14 @@
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #0b0f14; color: #e9edf2; font: 15px/1.5 system-ui, Arial; }
+header { display:flex; align-items:center; justify-content:space-between; padding:.6rem 1rem; background:#111722; border-bottom:1px solid #1d2a3a; }
+h1 { font-size:1.1rem; margin:0; color:#00e5ff; letter-spacing:.5px; }
+nav { display:flex; align-items:center; gap:.8rem; }
+a, button { color:#e9edf2; background:#1b2635; border:1px solid #2b3c52; border-radius:6px; padding:.35rem .7rem; text-decoration:none; }
+a:hover, button:hover { filter:brightness(1.1); cursor:pointer; }
+#game { display:block; margin:1rem auto; border:2px solid #1d2a3a; background: #0b0f14; }
+
+#overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); display:grid; place-items:center; }
+#overlay.hidden { display:none; }
+.panel { background:#101826; border:1px solid #2b3c52; padding:1rem 1.2rem; border-radius:10px; width:min(92vw, 480px); }
+.panel h2 { margin:.2rem 0 .4rem; color:#ff2ed1; }

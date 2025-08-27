@@ -1,6 +1,40 @@
-/vendor/
+# ---- OS cruft ----
+.DS_Store
+Thumbs.db
+
+# ---- Env & secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Dependencies / build outputs ----
 /node_modules/
+/vendor/          # keep ignored unless you plan to vendor PHP deps
+/dist/
+/build/
+/coverage/
+/.nyc_output/
+
+# ---- Caches / logs ----
 /logs/
 /tmp/
 /cache/
-/.env
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+.parcel-cache
+
+# ---- IDE/editor ----
+.vscode/
+.idea/
+*.iml
+
+# ---- Framework/hosting (add if you use them) ----
+.next/
+.vercel/
+.netlify/
+
+# ---- Uploads or generated media (if your game ever writes here) ----
+public/uploads/

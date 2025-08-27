@@ -1,0 +1,115 @@
+/* Components: avatar form card, inputs, buttons */
+
+/* The avatar form acts as the overlay card */
+#avatarForm {
+  width: min(92vw, 480px);     /* a bit wider for nicer spacing */
+  padding: 24px;               /* up from 20px */
+  background: #0e1420;
+  border: 1px solid #23324b;
+  border-radius: 12px;
+}
+
+/* Headings & vertical rhythm */
+#avatarForm h2 { 
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+
+/* Stack fields with consistent spacing */
+#avatarForm > label { 
+  display: block; 
+  margin: 12px 0;              /* replaces tiny 6px margin */
+}
+
+/* Text input */
+#avatarForm input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;          /* larger touch target */
+  border-radius: 8px;
+  border: 1px solid #2a3a58;
+  background: #0b1320;
+  color: #e6f0ff;
+}
+
+/* Radio group */
+#avatarForm fieldset {
+  margin: 14px 0;
+  padding: 10px 12px;
+  border: 1px solid #23324b;
+  border-radius: 8px;
+}
+#avatarForm fieldset legend {
+  padding: 0 6px;
+  color: #9fe8ff;
+}
+#avatarForm fieldset label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 12px 6px 0;      /* space between options */
+}
+
+/* Actions */
+#avatarForm button[type="submit"] {
+  margin-top: 16px;            /* separates button from fields */
+}
+
+/* Buttons (shared) */
+button {
+  cursor: pointer;
+  padding: 10px 16px;          /* larger hit area */
+  border-radius: 8px;
+  border: 1px solid #2a3a58;
+  background: #1a2335;
+  color: #e6f0ff;
+}
+button:hover { background: #223149; }
+
+/* Wider select dialog */
+.card.wide { width: min(92vw, 840px); }
+
+/* Grid of runner cards */
+.runner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  max-height: 380px;
+  overflow: auto;
+  margin-top: 8px;
+}
+
+/* Individual runner card */
+.runner-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0e1420;
+  cursor: pointer;
+}
+.runner-card:hover { background: #15203a; border-color: #2a3a58; }
+.runner-card.selected { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stats-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.stat { font-size: 11px; padding: 2px 6px; border-radius: 999px; border: 1px solid #2a3a58; background: #0b1320; }
+
+/* Avatar badge (placeholder circle; swap for sprite later) */
+.runner-card .badge {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  background: #122038;
+  border: 1px solid #2a3a58;
+  text-transform: uppercase;
+}
+
+/* Text & meta */
+.runner-card .name { font-size: 16px; font-weight: 600; }
+.runner-card .meta { font-size: 12px; opacity: .8; }
+
+/* Chips for quick stats */
+.stats-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.stat { font-size: 11px; padding: 2px 6px; border-radius: 999px; border: 1px solid #2a3a58; background: #0b1320; }

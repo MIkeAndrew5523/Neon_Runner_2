@@ -1,0 +1,23 @@
+{
+  "length": 6000,
+  "speed": 300,
+  "gravity": 2200,
+  "lanesY": [400, 300, 220],
+  "player": { "x": 120, "lane": 0, "lives": 3 },
+  "objects": [
+    { "type": "shard", "x": 600,  "lane": 0 },
+    { "type": "obst",  "x": 900,  "lane": 0 },
+    { "type": "obst",  "x": 1250, "lane": 1 },
+    { "type": "shard", "x": 1350, "lane": 1 },
+    { "type": "gate",  "x": 1800, "lane": 0, "id": "H-01" },
+    { "type": "obst",  "x": 2250, "lane": 0 },
+    { "type": "obst",  "x": 2600, "lane": 2 },
+    { "type": "shard", "x": 3000, "lane": 2 },
+    { "type": "obst",  "x": 3400, "lane": 1 },
+    { "type": "obst",  "x": 3700, "lane": 0 },
+    { "type": "shard", "x": 4200, "lane": 0 },
+    { "type": "obst",  "x": 4550, "lane": 0 },
+    { "type": "obst",  "x": 4900, "lane": 1 },
+    { "type": "end",   "x": 5900, "lane": 0 }
+  ]
+}

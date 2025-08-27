@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cyber Drift: Neon Runner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Cyber Drift</h1>
+    <nav>
+      <a href="avatar.html">Avatar</a>
+      <button id="btnStart">Start</button>
+      <span id="hud">Score: <b id="score">0</b> • Lives: <b id="lives">3</b> • Gate: <b id="gate">—</b></span>
+    </nav>
+  </header>
+
+  <canvas id="game" width="960" height="540" aria-label="Game canvas"></canvas>
+
+  <!-- lightweight intro overlay (we’ll replace with story screens next pass) -->
+  <div id="overlay" class="hidden">
+    <div class="panel">
+      <h2 id="ovTitle">Level Complete</h2>
+      <p id="ovMsg">Safehouse reached.</p>
+      <button id="ovBtn">Continue</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

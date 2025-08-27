@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cyber Drift: Neon Runner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Styles (order matters for the cascade you set up) -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/states.css">
+  <link rel="stylesheet" href="css/utilities.css">
+</head>
+<body data-state="title">
+  <noscript>
+    <p style="padding:12px;background:#300;color:#fff">This game requires JavaScript.</p>
+  </noscript>
+
+  <!-- Canvas is your game world -->
+  <canvas id="game" width="960" height="540" aria-label="Game canvas"></canvas>
+
+  <!-- ========================= -->
+  <!-- Title Menu (default shown) -->
+  <!-- ========================= -->
+  <div id="titleMenu" class="overlay" role="dialog" aria-modal="true" aria-labelledby="titleHeading">
+    <div class="card">
+      <h1 id="titleHeading" style="margin:0 0 12px;">Cyber Drift: Neon Runner</h1>
+      <p style="margin:0 0 16px; opacity:.85;">Start a new runner or continue with an existing one.</p>
+      <div class="actions">
+        <button id="btnNew"   type="button" class="btn">New Runner</button>
+        <button id="btnSelect" type="button" class="btn">Select Existing</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Select Existing Runner (card grid) -->
+<div id="selectRunner" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="selectHeading">
+  <div class="card wide">
+    <h2 id="selectHeading" style="margin:0 0 12px;">Select Runner</h2>
+
+    <label class="sr-only" for="searchUser">Search runners</label>
+    <input id="searchUser" type="text" placeholder="Search name…" autocomplete="off"
+           style="width:100%;padding:10px;border-radius:8px;border:1px solid #2a3a58;background:#0b1320;color:#e6f0ff;">
+
+    <!-- This is the container your JS renders into -->
+    <div id="runnerGrid" class="runner-grid" role="listbox" aria-label="Available runners"></div>
+
+    <div class="actions">
+      <button id="btnCreateNew" type="button" class="btn btn-ghost">Create New</button>
+      <span class="spacer"></span>
+      <button id="btnUse"    type="button" class="btn" disabled>Use Selected</button>
+      <button id="btnCancel" type="button" class="btn">Back</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- =============================== -->
+<!-- Avatar Creation (hidden by FSM) -->
+<!-- =============================== -->
+<form id="avatarForm" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="avatarHeading">
+  <div class="card" role="document">
+    <h2 id="avatarHeading" style="margin:0 0 12px;">Create Runner</h2>
+
+    <label for="username">Player name</label>
+    <input id="username" name="username" maxlength="32" required autocomplete="username"
+           style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #2a3a58;background:#0b1320;color:#e6f0ff;">
+
+    <fieldset style="margin:14px 0;padding:10px 12px;border:1px solid #23324b;border-radius:8px;">
+      <legend style="padding:0 6px;color:#9fe8ff;">Avatar</legend>
+      <label style="display:inline-flex;align-items:center;gap:6px;margin:6px 12px 6px 0;">
+        <input type="radio" name="avatar_key" value="runner_f" checked> Runner F
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:6px;margin:6px 12px 6px 0;">
+        <input type="radio" name="avatar_key" value="runner_m"> Runner M
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:6px;margin:6px 12px 6px 0;">
+        <input type="radio" name="avatar_key" value="android"> Android
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button id="btnAvatarBack" type="button" class="btn btn-ghost" aria-label="Back to title">Back</button>
+      <span class="spacer"></span>
+      <button type="submit" class="btn">Start</button>
+    </div>
+  </div>
+</form>
+
+
+  <!-- Scripts (keep this order; defer preserves order after parse) -->
+  <script src="js/net.js" defer></script>
+  <script src="js/states/title.js" defer></script>
+  <script src="js/states/avatar.js" defer></script>
+  <script src="js/states/story.js" defer></script>
+  <script src="js/game.js" defer></script>
+
+</body>
+</html>
