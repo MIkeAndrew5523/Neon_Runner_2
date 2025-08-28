@@ -57,7 +57,7 @@
     try { registerState('avatar',           AvatarState); }        catch {}
     try { registerState('story',            StoryState); }         catch {}
     try { registerState('sector1_explore',  Sector1Explore); }     catch {}
-    try { registerState('circuit_patch',    CircuitPatchState); }  catch {}
+  try { registerState('circuit_patch',    window.CircuitPatchState); }  catch {}
 
     const user_id = +localStorage.getItem('user_id') || 0;
     const backstorySeen = localStorage.getItem('backstory_seen') === '1';

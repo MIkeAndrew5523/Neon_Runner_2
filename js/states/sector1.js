@@ -7,32 +7,64 @@ const Sector1Explore = {
     this.screen = data?.screen || 'alley_start'; // 'alley_start' | 'alley_junk' | 'alley_gate'
     this.gateUnlocked = !!data?.gateUnlocked;
 
+    // cache canvas
+    this.canvas = Game.canvas || document.getElementById('game');
+
+    // Click navigation (also lets you click the gate to open the puzzle)
     this.onClick = (e) => {
-      const x = e.offsetX, w = e.target.width;
-      if (this.screen === 'alley_start') this.screen = (x < w/2) ? 'alley_junk' : 'alley_gate';
-      else if (this.screen === 'alley_junk') this.screen = 'alley_start';
-      else if (this.screen === 'alley_gate') this.screen = 'alley_start';
+      const rect = this.canvas.getBoundingClientRect();
+      const px = (e.clientX - rect.left) * (this.canvas.width / rect.width);
+      const py = (e.clientY - rect.top)  * (this.canvas.height / rect.height);
+
+      if (this.screen === 'alley_start') {
+        this.screen = (px < this.canvas.width / 2) ? 'alley_junk' : 'alley_gate';
+        return;
+      }
+
+      if (this.screen === 'alley_junk') {
+        this.screen = 'alley_start';
+        return;
+      }
+
+      if (this.screen === 'alley_gate') {
+        // gate rectangle (must match draw())
+        const gx = this.canvas.width/2 - 60, gy = this.canvas.height/2 - 30, gw = 120, gh = 60;
+        const insideGate = (px >= gx && px <= gx+gw && py >= gy && py <= gy+gh);
+
+        if (insideGate && !this.gateUnlocked) {
+          Game.setState('circuit_patch', { returnTo: 'sector1_explore' });
+          return;
+        }
+
+        if (insideGate && this.gateUnlocked) {
+          // Tram repaired -> advance (hook into save_progress later)
+          console.log('Sector 1 complete → unlock tram');
+          // Game.setState('sector2_explore');
+          return;
+        }
+
+        // click elsewhere on this screen returns to start
+        this.screen = 'alley_start';
+      }
     };
 
+    // Keyboard shortcuts
     this.onKey = (e) => {
-      if (this.screen === 'alley_gate' && !this.gateUnlocked && (e.key === 'e' || e.key === 'E')) {
-        // Enter the mini-game
+      if (this.screen === 'alley_gate' && !this.gateUnlocked && e.code === 'KeyE') {
         Game.setState('circuit_patch', { returnTo: 'sector1_explore' });
       }
-      if (this.screen === 'alley_gate' && this.gateUnlocked && e.key === 'Enter') {
-        // Tram repaired -> advance (for now just log; hook into save_progress later)
+      if (this.screen === 'alley_gate' && this.gateUnlocked && e.code === 'Enter') {
         console.log('Sector 1 complete → unlock tram');
-        // Example: call a progress API, then go to next sector or a cutscene.
         // Game.setState('sector2_explore');
       }
     };
 
-    document.getElementById('game').addEventListener('click', this.onClick);
+    this.canvas.addEventListener('click', this.onClick);
     window.addEventListener('keydown', this.onKey);
   },
 
   exit() {
-    document.getElementById('game').removeEventListener('click', this.onClick);
+    (this.canvas || document.getElementById('game'))?.removeEventListener('click', this.onClick);
     window.removeEventListener('keydown', this.onKey);
   },
 
@@ -65,7 +97,7 @@ const Sector1Explore = {
       ctx.fillText('Scrap piles. Click to go back.', w/2, 64);
     } else if (this.screen === 'alley_gate') {
       if (!this.gateUnlocked) {
-        ctx.fillText('Gate is powered down. Press E to patch the circuit.', w/2, 64);
+        ctx.fillText('Gate is powered down. Press E or click gate to patch the circuit.', w/2, 64);
       } else {
         ctx.fillText('Gate repaired! Press Enter to ride the tram to Sector 2.', w/2, 64);
       }
@@ -79,58 +111,6 @@ const Sector1Explore = {
   }
 };
 
-// -------- Sector 1: Circuit Patch Mini-game (placeholder) --------
-const CircuitPatchState = {
-  enter(data) {
-    this.returnTo = data?.returnTo || 'sector1_explore';
-    this.t = 0;
-    this.solved = false;
-
-    this.onKey = (e) => {
-      if (e.key === 'Enter') this.solve(); // quick manual solve
-    };
-    window.addEventListener('keydown', this.onKey);
-  },
-
-  exit() {
-    window.removeEventListener('keydown', this.onKey);
-  },
-
-  update(dt) {
-    this.t += dt;
-    // auto-solve after 5 seconds to prove the flow
-    if (!this.solved && this.t > 5) this.solve();
-  },
-
-  async solve() {
-    this.solved = true;
-
-    // optional: persist a checkpoint
-    const user_id = +localStorage.getItem('user_id') || 0;
-    if (user_id && typeof API?.saveCheckpoint === 'function') {
-      try {
-        await API.saveCheckpoint({
-          user_id,
-          sector: 1,
-          level_key: 'tram_gate',
-          progress_pct: 100,
-          state: { screen: 'alley_gate', puzzle: { circuit_patch: { solved: true } } }
-        });
-      } catch (_) {}
-    }
-
-    // return to explore with gate unlocked
-    Game.setState(this.returnTo, { screen: 'alley_gate', gateUnlocked: true });
-  },
-
-  draw(ctx) {
-    const w = ctx.canvas.width, h = ctx.canvas.height;
-    ctx.fillStyle = '#08121f'; ctx.fillRect(0,0,w,h);
-    ctx.fillStyle = '#9fe';
-    ctx.font = '22px system-ui'; ctx.textAlign = 'center';
-    ctx.fillText('Circuit Patch – placeholder', w/2, h/2 - 20);
-    ctx.font = '16px system-ui';
-    ctx.fillText('Wait 5s or press Enter to solve.', w/2, h/2 + 14);
-  }
-};
-
+// Register only the exploration state here.
+// The real puzzle registers from js/puzzles/circuitPatch.js
+registerState('sector1_explore', Sector1Explore);
