@@ -6,11 +6,7 @@ const StoryState = {
   update(dt) {
     this.t += dt;
     if (this.t >= this.duration) {
-      // TODO: switch to Sector 1 exploration when ready.
-      // e.g., Game.setState("sector1_explore");
-      // For now, loop back to title so you can see the flow.
-      // Replace this line once Sector 1 is implemented.
-      Game.setState("title");
+      Game.setState('sector1_explore');
     }
   },
   draw(ctx) {

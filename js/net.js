@@ -7,6 +7,10 @@ const API = {
     });
     return r.json();
   },
+    // ADD THIS:
+  listUsers: (q = "", limit = 30) =>
+    API.post("php/list_users.php", { q, limit }),
+  
   saveUser: (username, avatar_key) =>
     API.post("php/save_user.php", { username, avatar_key }),
   getProgress: (user_id) =>
