@@ -36,11 +36,6 @@ A browser-based cyberpunk runner game built with HTML, CSS, and JavaScript.
 - Explore Sector 1, complete tasks, and play the circuit patch mini-game
 - Progress is saved automatically
 
-## Contributing
-Pull requests and suggestions are welcome! Please open an issue for bugs or feature requests.
-
-## License
-MIT License
 
 ---
 Cyber Drift: Neon Runner © 2025 MikeAndrew5523# Neon_Runner_2
